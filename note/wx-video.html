@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <meta content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<header id="header" class="header">标题栏</header>
+<div class="player" style="position: relative;">
+    <video id="video" class="video" height="300" playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" x5-video-player-fullscreen="false" src="http://wishufu.wismall.com/assets/goodsVideo/20180620/5b2a158ab15cd.mp4">
+    </video>
+    <div id="z-play" onclick="playMedia()"><span></span></div>
+</div>
+<!-- <div id="main" class="main">
+    <div class="inner">这里是其他内容</div>
+</div> -->
+<style>
+#z-play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 54px;
+        height: 54px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        margin-left: -27px;
+        margin-top: -27px;
+        background: rgba(0,0,0,.4);
+    }
+    #z-play span {
+        border-width: 12px 0 12px 12px;
+        border-style: solid;
+        border-color: transparent #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -12px;
+        margin-left: -6px;
+    }
+.player {
+    width: 100%;
+    /* height: 200px; */
+}
+.player .video {
+    width: 100%;
+    height: 300px;
+}
+.fullscreen .video {
+    object-position: center top;
+}
+.header {
+    width: 100%;
+    height: 48px;
+    line-height: 66px;
+    background: #fff;
+    font-size: 16px;
+    text-align: center;
+    color: #000;
+}
+.fullscreen .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+.fullscreen .player .video {
+    object-position: center 48px;
+}
+.main {
+    height: 5rem;
+    background: #fff;
+}
+.main .inner {
+    padding: 10px;
+}
+.fullscreen .main {
+    margin-top: 48px;
+}
+.fullscreen .main {
+    position: relative;
+}
+</style>
+<script>
+function playMedia() {
+                document.getElementById('z-play').style.display = "none";
+                document.getElementById('video').play();
+            }
+            
+var player = document.getElementById('video');
+player.addEventListener('x5videoenterfullscreen', function() {
+    // 设为屏幕尺寸
+    player.style.width = window.screen.width + 'px';
+    player.style.height = window.screen.height + 'px';
+    // 在body上添加样式类以控制全屏下的展示
+    document.body.classList.add('fullscreen');
+});
+player.addEventListener('x5videoexitfullscreen', function() {
+    player.style.width = player.style.height = '';
+    document.body.classList.remove('fullscreen');
+}, false)
+</script>
+</body>
+</html>

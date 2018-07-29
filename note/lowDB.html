@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Document</title>
+    <style>
+        
+
+    </style>
+</head>
+
+<body>
+
+    <button id="add">add</button>
+
+    
+
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+<script src="https://unpkg.com/lodash@4/lodash.min.js"></script>
+<script src="https://unpkg.com/lowdb@0.17/dist/low.min.js"></script>
+<script src="https://unpkg.com/lowdb@0.17/dist/LocalStorage.min.js"></script>
+<script type="text/javascript">
+
+    var adapter = new LocalStorage('db');
+    var db = low(adapter);
+    console.log(adapter);
+    console.log(db);
+    db.defaults({ posts: [] })
+            .write()
+        
+
+        $('#add').click(function() {
+            setInterval(function() {
+                for(var i=0; i<50; i++) {
+                    // Data is automatically saved to localStorage
+                    db.get('posts')
+                    .push({ title: '中文内容', title2: 'lowdblowdblowdblowdblowdb', title3: 'lowdblowdb34532553'  })
+                    .write()
+                }
+            }, 3000);
+            
+            
+
+            
+        });
+
+</script>
+
+</html>

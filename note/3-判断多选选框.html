@@ -1,0 +1,61 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>new document</title>
+    <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+           var checkboxes = $("input[type='checkbox']");
+           var submitButt = $("input[type='submit']");
+
+            $("lable span").click(function(event) {
+                    alert("不能为空");           
+            });
+            checkboxes.click(function() {
+                submitButt.attr("disabled", !checkboxes.is(":checked"));
+                if(submitButt.attr("disabled")==null){
+                    $("lable span").css("display","none");
+                }else if(submitButt.attr("disabled")){
+                    $("lable span").css("display","block");
+                }
+            });
+            /*$("#btn").click(function(event) {
+                var checkboxes = $("input[type='checkbox']");
+                $("input[type='checkbox']").each(function(index, el) {
+                    if($(this).attr("checked")==null){
+                        alert("oo");
+                    }
+                });
+                for(i=0;i<$("input[type='checkbox']").length;i++){
+                    if($("input[type='checkbox']").eq(i).attr("checked")=="checked"){
+                        alert("kk");
+                    }else($("input[type='checkbox']").eq(i).attr("checked")==null){
+                        alert("不能为空");
+                    }
+                }
+            });*/
+        });
+    </script>
+    <style type="text/css">
+        
+    </style>
+</head>
+<body>
+    <div class="fft">
+       <!-- bunch of checkboxes like: -->
+       <input type="checkbox" />选中
+       <input type="checkbox" />选中
+       <input type="checkbox" />选中
+       <input type="checkbox" />选中
+       <input type="checkbox" />选中
+        <br />
+       <!-- submit button, defaults to disabled -->
+       <lable style="position:relative;">
+            <input type="submit" disabled="disabled" id="btn" value="submit">
+            <span style="position:absolute; left:0; top:0; width:62px; height:25px; background:rgba(0,0,0,0); cursor:pointer;"></span>
+       </lable>
+    </div>
+</body>
+</html>

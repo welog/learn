@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html manifest="demo.appcache">
+<head>
+<title>demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scaleable=no">
+
+<style type="text/css">
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    font-size:14px;
+    height: 2000px;
+}
+.fr{
+    float:right;
+}
+.vt{
+    vertical-align: top;
+}
+.aaaaa {
+  color: red;
+}
+</style>
+</head>
+<body>
+
+<div id="wrap" class="wrap">
+  <div class="con">
+      <h1>萨摩耶犬</h1>
+      <ul>
+        <li>
+          <h3>发展历史</h3>
+          <img class="fr" src="files/dog.jpg" width="200">
+          萨摩耶犬是因西伯利亚牧民族萨莫耶德人而得名，原产位于俄罗斯北极地区，起源于17世纪。原始的萨摩耶犬是由如今定居在乌拉尔山以东的极地地区的萨莫耶德游牧部落所培育的。在19世纪末，有毛皮商人将此犬输入美国及欧洲等地。而后该犬传到英国，因其雪白的毛色深得人们喜爱。20世纪初期，北极探险的热潮中，此犬因其天生的特性为探险者提供许多帮助，而获得殊荣。
+        </li>
+        <li>
+          <h3 class="aaaaa">外形特征</h3>
+          直立的耳朵很厚，呈三角形，尖端略圆。两耳分的较开。眼睛颜色深为佳，两眼凹陷，间距大，杏仁形，下眼睑向耳基部倾斜。鼻子颜色有黑色、棕色、肝褐色，鼻的颜色有时随年龄和气候改变。嘴唇多数是黑色，嘴角上翘。牙齿强壮，剪状咬合。背部直，中等长度，肌肉丰满。脚大而长，比较平，似野兔的足，趾稍分开；趾尖呈拱形肉垫厚而硬，趾之间有保护的毛，脚圆形或似猫足。尾巴比较长，自然下垂时可达 跗关节部，尾部被毛长而厚，当犬处于戒备状态时，尾上翘高于背部或位于背部一侧，休息时下垂。
+        </li>
+        <li>
+          <h3>问卷</h3>
+          <div class="form">
+            <div class="row">名字：<input type="text" placeholder="请留下您的名字"></div>
+            <div class="row">性别：<input type="radio" name="radio">先生 <input type="radio" name="radio">女士</div>
+            <div class="row">你家有宠物吗: <input type="checkbox">有</div>
+            <div class="row">留言：<textarea class="vt" cols="60" rows="10"></textarea></div>
+          </div>
+        </li>
+      </ul>
+  </div>
+  <button class="btn no-print" onClick="Print('#wrap')">点击开始打印</button>
+</div>
+
+<script type="text/javascript">
+(function(window, document) {
+  var Print = function(dom, options) {
+    if (!(this instanceof Print)) return new Print(dom, options);
+
+    this.options = this.extend({
+      'noPrint': '.no-print'
+    }, options);
+
+    if ((typeof dom) === "string") {
+      this.dom = document.querySelector(dom);
+    } else {
+      this.dom = dom;
+    }
+
+    this.init();
+  };
+  Print.prototype = {
+    init: function() {
+      var content = this.getStyle() + this.getHtml();
+      this.writeIframe(content);
+    },
+    extend: function(obj, obj2) {
+      for (var k in obj2) {
+        obj[k] = obj2[k];
+      }
+      return obj;
+    },
+
+    getStyle: function() {
+      var str = "",
+        styles = document.querySelectorAll('style,link');
+      for (var i = 0; i < styles.length; i++) {
+        str += styles[i].outerHTML;
+      }
+      str += "<style>" + (this.options.noPrint ? this.options.noPrint : '.no-print') + "{display:none;}</style>";
+
+      return str;
+    },
+
+    getHtml: function() {
+      var inputs = document.querySelectorAll('input');
+      var textareas = document.querySelectorAll('textarea');
+      var selects = document.querySelectorAll('select');
+
+      for (var k in inputs) {
+        if (inputs[k].type == "checkbox" || inputs[k].type == "radio") {
+          if (inputs[k].checked == true) {
+            inputs[k].setAttribute('checked', "checked")
+          } else {
+            inputs[k].removeAttribute('checked')
+          }
+        } else if (inputs[k].type == "text") {
+          inputs[k].setAttribute('value', inputs[k].value)
+        }
+      }
+
+      for (var k2 in textareas) {
+        if (textareas[k2].type == 'textarea') {
+          textareas[k2].innerHTML = textareas[k2].value
+        }
+      }
+
+      for (var k3 in selects) {
+        if (selects[k3].type == 'select-one') {
+          var child = selects[k3].children;
+          for (var i in child) {
+            if (child[i].tagName == 'OPTION') {
+              if (child[i].selected == true) {
+                child[i].setAttribute('selected', "selected")
+              } else {
+                child[i].removeAttribute('selected')
+              }
+            }
+          }
+        }
+      }
+
+      return this.dom.outerHTML;
+    },
+
+    writeIframe: function(content) {
+      var w, doc, iframe = document.createElement('iframe'),
+        f = document.body.appendChild(iframe);
+      iframe.id = "myIframe";
+      iframe.style = "position:absolute;width:0;height:0;top:-10px;left:-10px;";
+
+      w = f.contentWindow || f.contentDocument;
+      doc = f.contentDocument || f.contentWindow.document;
+      doc.open();
+      doc.write(content);
+      doc.close();
+      this.toPrint(w);
+
+      setTimeout(function() {
+        document.body.removeChild(iframe)
+      }, 100)
+    },
+
+    toPrint: function(frameWindow) {
+      try {
+        setTimeout(function() {
+          frameWindow.focus();
+          try {
+            if (!frameWindow.document.execCommand('print', false, null)) {
+              frameWindow.print();
+            }
+          } catch (e) {
+            frameWindow.print();
+          }
+          frameWindow.close();
+        }, 10);
+      } catch (err) {
+        console.log('err', err);
+      }
+    }
+  };
+  window.Print = Print;
+}(window, document));
+</script>
+</body>
+</html>

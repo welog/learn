@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Document</title>
+    <style>
+        .app {
+            width: 100px;
+            height: 200px;
+            background: #ccc;
+        }
+
+        .delete {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+
+
+
+
+
+    <div class="app">
+        123
+    </div>
+
+
+    <ul id="items">
+        <li>List item 1
+            <span class="delete">DELETE</span>
+        </li>
+        <li>List item 2
+            <span class="delete">DELETE</span>
+        </li>
+    </ul>
+
+
+    <p><button id="test">test</button></p>
+
+    <p><button id="zalert">alert</button></p>
+
+
+</body>
+<!-- <script src="js/zepto.js"></script> -->
+<!-- <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script> -->
+<!-- <script src="https://cdn.bootcss.com/zepto/1.0rc1/zepto.min.js"></script> -->
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+<script src="js/h5-prompt.min.js"></script>
+<script type="text/javascript">
+
+    $('#btn').click(function() {
+        $.MsgBox.Alert('123');
+
+        $.Prompt.Confirm('345', function() {
+            //console.log(res);
+        });
+
+        $.Prompt.Custom('789', function() {
+
+        }, '<input id="zh-confirm" type="button" value="确定" style="width:100%;" />');
+    });
+
+    // show delete buttons on swipe
+    // $('#items li').swipe(function(){
+    //     $('.delete').hide()
+    //     $('.delete', this).show()
+    // })
+
+    // // delete row on tapping delete button
+    // $('.delete').tap(function(){
+    //   $(this).parent('li').remove()
+    // })
+
+    console.log($.support);
+
+    $('#test').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/learn/zepto.php',
+            data: { name: 'Zepto.js' },
+            dataType: 'text',
+            timeout: 300,
+            context: $(this),
+            success: function (data) {
+                console.log($(this).text());
+            },
+            error: function (xhr, type) {
+                alert('Ajax error!')
+            }
+        });
+    });
+
+    $('body').bind('click', function (e) {
+
+        var target = e.target, // e.target grabs the node that triggered the event.
+
+            $target = $(target); // wraps the node in a jQuery object
+        console.log(target.nodeName);
+        if (target.nodeName === 'LI') {
+
+            $target.addClass('clicked');  // do stuff
+
+        }
+
+    });
+
+</script>
+
+</html>

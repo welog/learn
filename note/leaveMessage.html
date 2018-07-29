@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>test</title>
+        <style type="text/css">
+            *{
+                margin:0;
+                padding:0;
+            }
+            .box{
+                max-width:640px;
+                height:auto;
+                margin:20px;
+            }
+            .box p{
+                font-size:14px;
+                color:#69c;
+                padding:4px;
+                border:1px solid #eee;
+                margin-top:30px;
+                border-radius:5px;
+                position:relative;
+            }
+            .box p span{
+                font-size:12px;
+                color:#ccc;
+                position: absolute;
+                right: 9px;
+                bottom: -18px;
+            }
+            .txt{
+                width:100%;
+                height:260px;
+                padding:4px 0 4px 4px;
+                overflow:hidden;
+                box-sizing:border-box;
+                border:1px solid #ccc;
+                border-radius:8px;
+                box-shadow:0px 1px 2px 1px #eee;
+                resize:none;
+                outline:none;
+            }
+            .sub{
+                border:1px solid #ccc;
+                border-radius:4px;
+                cursor:pointer;
+                float:right;
+                background-color: #eee;
+                padding: 2px 4px;
+                margin:0 10px 0 0;
+            }
+        </style>
+       <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+       <script type="text/javascript">
+            $(document).ready(function() {
+                $(".sub").click(function(){
+                      var $val = $(".txt").val();
+                      var $time = new Date();
+                      var $tYear = $time.getFullYear();
+                      var $tMonth = $time.getMonth()+1;
+                      var $tDate = $time.getDate();
+                      var $tHours = $time.getHours();
+                      var $tMin = $time.getMinutes();
+                      var $tSec = $time.getSeconds();
+                      if($val=="" || $val==" "){
+                        alert("请输入内容哦！")
+                      }else{
+                        $(".box").append('<p></p>');
+                        $("p:last").html($val);
+                        $("p:last").append('<span></span>');
+                        $("p:last").children().html($tYear+"-"+$tMonth+"-"+$tDate+" "+$tHours+":"+$tMin+":"+$tSec);
+                      }
+                      
+                });
+            });
+       </script>
+    </head>
+    <body>
+        <div class="box">
+            <textarea name="txt" class="txt"></textarea>
+            <div style="overflow:hidden;">
+                <input class="sub" type="submit" value="发表" />
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <button id="add">add</button>
+
+
+
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+<script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+<script type="text/javascript">
+
+    //
+    // Declare Database
+    //
+    var db = new Dexie("crm_wismall_com");
+    db.version(1).stores({
+        crm_user: "++id,openid,username"
+    });
+
+    //
+    // Manipulate and Query Database
+    //
+    // db.friends.add({ name: "Josephine", age: 21 }).then(function () {
+    //     return db.friends.where("age").below(25).toArray();
+    // }).then(function (youngFriends) {
+    //     alert("My young friends: " + JSON.stringify(youngFriends));
+    // }).catch(function (e) {
+    //     alert("Error: " + (e.stack || e));
+    // });
+    console.log(db);
+
+    $('#add').click(function () {
+        for(var i=0; i<100; i++) {
+            db.crm_user.add({ openid: 25, username: 'weilong' });
+        }
+        // db.crm_user.add({ openid: 25, username: 'weilong' }).then(function () {
+        //     return db.crm_user.where("openid").below(25).toArray();
+        // }).then(function (res) {
+        //     console.log("result: " + JSON.stringify(res));
+        // }).catch(function (e) {
+        //     console.log("Error: " + (e.stack || e));
+        // });
+    });
+
+</script>
+
+</html>

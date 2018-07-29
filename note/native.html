@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+
+    <script>
+
+        window.onload = function () {
+            // 区分移动端和PC端
+            var u = navigator.userAgent;
+            var app = navigator.appVersion;
+            var isMobile = !!u.match(/AppleWebKit.*Mobile.*/);
+            if (isMobile) {
+                document.getElementById('mobile').style.display = 'block';
+            } else {
+                document.getElementById('pc').style.display = 'block';
+            }
+
+        }
+
+
+        function memfactorial(n) {
+            if (!memfactorial.cache) {
+                memfactorial.cache = {
+                    "0": 1,
+                    "1": 1
+                };
+            }
+            console.log(memfactorial.cache);
+            console.log(memfactorial.cache.hasOwnProperty(n));
+            if (!memfactorial.cache.hasOwnProperty(n)) {
+                memfactorial.cache[n] = n * memfactorial(n - 1);
+            }
+            return memfactorial.cache[n];
+        }
+
+        console.log(memfactorial(6));
+        console.log(memfactorial(5));
+        console.log(memfactorial(4));
+
+    </script>
+</body>
+
+</html>
