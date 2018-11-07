@@ -1,4 +1,2 @@
 # learn
 note
-
-test
