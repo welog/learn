@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+
+<body>
+
+
+    <h1 class="header">page 1</h1>
+    <div class="mb20">
+        <textarea name="ta" id="data" cols="30" rows="5">hello world</textarea>
+        <button style="font-size:20px;" onclick="send()">post message</button>
+    </div>
+    <!-- 不跨域的情况 -->
+    <iframe src="post-message2.html" id="child" style="display: block; border: 1px dashed #ccc; height: 300px;"></iframe>
+
+
+</body>
+<!-- <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script> -->
+<script type="text/javascript">
+
+    function send() {
+        var data = document.querySelector('#data').value;
+
+        // 注意: 只会触发当前window对象的message事件
+        // 也可以访问子页面的window对象，触发子页面的message事件 (window.frames[0].postMessage(...))
+        // window.postMessage(data, '/'); 
+        // data = {name: 'sandy', age: 20, fav: {sing: true, shop: false}}; // 也可以传普通对象
+        window.frames[0].postMessage(data, '/'); // 触发同域子页面的message事件
+        //window.frames[0].postMessage(data, 'http://localhost:9022/'); // 触发跨域子页面的messag事件
+    }
+
+    // 当前页面执行 window.postMessage(..)
+    // 或
+    // 子页面执行 parent.postMessage(...) 都会触发下面的回调, messageEvent.source不同而已
+    window.addEventListener('message', function(messageEvent) {
+        var data = messageEvent.data;// messageEvent: {source, currentTarget, data}
+        console.info('message from child:', data);
+    }, false);
+
+
+</script>
+
+</html>

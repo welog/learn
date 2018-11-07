@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Document</title>
+    <style>
+        
+
+    </style>
+</head>
+
+<body>
+
+
+    <button id="btn">click</button>
+
+
+    
+
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+<script type="text/javascript">
+
+    $('#btn').click(function() {
+        console.log(getParameter('vconsole'));
+    });
+
+    function getParameter(n) {
+
+      var m = window.location.hash.match(new RegExp('(?:#|&)' + n + '=([^&]*)(&|$)')),
+          result = !m ? '' : decodeURIComponent(m[1])
+          console.log(m, result)
+      return result ||getParameterByName(n)
+  }
+
+  function getParameterByName(name, url) {
+      if (!url) url = window.location.href
+      name = name.replace(/[\[\]]/g, "\\$&")
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url)
+      if (!results) return null
+      if (!results[2]) return ''
+      return decodeURIComponent(results[2].replace(/\+/g, " "))
+  }
+   
+
+</script>
+</html>

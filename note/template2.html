@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>demo</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/dot/2.0.0-beta.0/doT.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        div {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>模板解析如下：</h2>
+    <div id="a"></div>
+    <h2>模板解析如下：（使用不同数据）</h2>
+    <div id="b"></div>
+    <script id="template" type="text/template">
+    <p>姓名：{{= it.name }}</p>
+    <p>年龄：{{= it.age }}</p>
+    <p>爱好：{{= it.hobbies[0] }}和{{= it.hobbies[1] }}</p>
+    {{ for(let {name, age} of it.friends) { }}
+      <p>姓名：{{= name }}</p>
+      <p>年龄：{{= age }}</p>
+    {{ } }}
+  </script>
+</body>
+<script>
+    $(() => {
+        // 一组数据
+        let data1 = {
+            name: 'hvb',
+            age: 22,
+            hobbies: ['reading', 'coding'],
+            friends: [
+                { name: 'hwj', age: 12 },
+                { name: 'hwb', age: 24 }
+            ]
+        }
+        // 一组不同的数据
+        let data2 = {
+            name: 'hvb111',
+            age: 22111,
+            hobbies: ['reading111', 'coding111'],
+            friends: [
+                { name: 'hwj111', age: 12111 },
+                { name: 'hwb111', age: 24111 }
+            ]
+        }
+
+        // 使用单例模式来缓存解析后的方法(对比以上粗暴的eval解析，性能提升3倍左右)
+        let render = (function () {
+            let fn = null
+            return function (id, it) {
+                if (!fn) {
+                    let html = $(`#${id}`).html()
+                    html = html.replace(/\n/g, '').replace(/{{(?!=)/g, '\';').replace(/{{=/g, '\'+').replace(/}}/g, ';str+=\'')
+                    console.log(html);
+                    fn = new Function('it', `let str='';str+='${html}';return str;`)
+                }
+                return fn(it)
+            }
+        })()
+
+        // 使用模板渲染一组数据
+        $('#a').append(render('template', data1))
+        // // 使用模板渲染一组不同的数据
+        // $('#b').append(render('template', data2))
+
+        // // 自定义模板性能测试
+        // console.time()
+        // for (let i = 0; i < 1000; i++) {
+        //     $('body').append(render('template', data1))
+        // }
+        // console.timeEnd()
+
+        // // doT模板性能测试
+        // var evalText = doT.template($('#template').text())
+        // console.time()
+        // for (let i = 0; i < 1000; i++) {
+        //     $('body').append(evalText(data1))
+        // }
+        // console.timeEnd()
+    })
+</script>
+
+</html>

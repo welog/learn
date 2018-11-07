@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+
+<body>
+
+
+
+
+
+
+
+<script src="js/fileSaver.js"></script>
+<script type="text/javascript">
+
+// // 导出生成文本
+//      function downloadText(data) {
+//          var blob = new Blob([JSON.stringify(data)], { type: "text/plain;charset=utf-8" });
+//          saveAs(blob, "hello.txt");
+//      }
+
+    
+
+    function getBlob(url) {
+        var dfd = jQuery.Deferred();
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                dfd.resolve(xhr.response);
+            }
+        };
+        xhr.send();
+
+        return dfd.promise();
+    }
+
+    function download(url, filename) {
+        getBlob().then(function (blob) {
+            console.log(blob);
+            var file = new File(["Hello, world!"], filename, {type: "text/plain;charset=utf-8"});
+            saveAs(file);
+        });
+    }
+
+    // download('http://localhost/learn/note/images/test.txt', 'vue-router.txt');
+    console.log(saveAs("http://localhost/learn/note/images/test.docx", "weilong.docx"))
+
+</script>
+</body>
+</html>

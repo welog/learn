@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+
+<body>
+
+
+
+
+
+
+
+    <script src="https://lib.baomitu.com/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        /**
+         * 获取 blob
+         * @param  {String} url 目标文件地址
+         * @return {Promise} 
+         */
+        function getBlob(url) {
+            var dfd = jQuery.Deferred();
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.responseType = 'blob';
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    dfd.resolve(xhr.response);
+                }
+            };
+            xhr.send();
+
+            return dfd.promise();
+        }
+
+        /**
+         * 保存
+         * @param  {Blob} blob     
+         * @param  {String} filename 想要保存的文件名称
+         */
+        function saveAs(blob, filename) {
+            if (window.navigator.msSaveOrOpenBlob) {
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                var link = document.createElement('a');
+                var body = document.querySelector('body');
+
+                link.href = window.URL.createObjectURL(blob);
+                link.download = filename;
+
+                // fix Firefox
+                link.style.display = 'none';
+                body.appendChild(link);
+
+                link.click();
+                body.removeChild(link);
+
+                window.URL.revokeObjectURL(link.href);
+            }
+        }
+
+        /**
+         * 下载
+         * @param  {String} url 目标文件地址
+         * @param  {String} filename 想要保存的文件名称
+         */
+        function download(url, filename) {
+            getBlob().then(function (blob) {
+                console.log(blob);
+                // saveAs(blob, filename);
+            });
+        }
+
+        download('http://localhost/learn/note/images/test.txt', 'vue-router.txt');
+
+
+
+
+
+    </script>
+</body>
+
+</html>

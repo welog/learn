@@ -43,10 +43,15 @@
     // });
     console.log(db);
 
+    var startTime;
+    var i = 0;
     $('#add').click(function () {
-        for(var i=0; i<100; i++) {
-            db.crm_user.add({ openid: 25, username: 'weilong' });
-        }
+        startTime = Date.now();
+       testPut();
+        // testGet();
+//        for(var i=0; i<10000; i++) {
+//            db.crm_user.add({ openid: 25, username: 'weilong' });
+//        }
         // db.crm_user.add({ openid: 25, username: 'weilong' }).then(function () {
         //     return db.crm_user.where("openid").below(25).toArray();
         // }).then(function (res) {
@@ -55,6 +60,29 @@
         //     console.log("Error: " + (e.stack || e));
         // });
     });
+
+    function testPut() {
+        db.crm_user.add({ openid: 10026 + i, username: 'weilong' + i }).then(function() {
+            if(i <= 10000) {
+                i++;
+                testPut();
+//                console.log('index===', i);
+            }else {
+                var endTime = Date.now();
+                console.log(endTime - startTime, 'ms');
+            }
+        });
+
+    }
+
+    function testGet() {
+        db.crm_user.where("openid").below(50000).toArray().then(function(res) {
+            var endTime = Date.now();
+            console.log(JSON.stringify(res));
+            console.log(endTime - startTime, 'ms');
+        });
+    }
+
 
 </script>
 

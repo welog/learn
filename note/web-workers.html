@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+
+<body>
+
+
+    <p>计数： <output id="result"></output></p>
+    <button onclick="startWorker()">开始工作</button> 
+    <button onclick="stopWorker()">停止工作</button>
+
+
+</body>
+<!-- <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script> -->
+<script type="text/javascript">
+
+    var w;
+ 
+    function startWorker() {
+        if(typeof(Worker) !== "undefined") {
+            if(typeof(w) == "undefined") {
+                w = new Worker("js/demo_workers.js");
+            }
+            w.onmessage = function(event) {
+                document.getElementById("result").innerHTML = event.data;
+            };
+        } else {
+            document.getElementById("result").innerHTML = "抱歉，你的浏览器不支持 Web Workers...";
+        }
+    }
+  
+    function stopWorker() { 
+        w.terminate();
+        w = undefined;
+    }
+
+
+</script>
+
+</html>

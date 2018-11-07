@@ -20,9 +20,9 @@ gulp.task('uglifyJS', function () {
 });
 
 gulp.task('jsmin', function () {
-    gulp.src('./h5-prompt.js')
+    gulp.src('./prompt.js')
         .pipe(uglify())
-        .pipe(rename('h5-prompt.min.js'))
+        .pipe(rename('prompt.min.js'))
         .pipe(gulp.dest('./'));
 });
 

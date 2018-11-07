@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+
+<body>
+
+
+    <h1 class="header">page 2</h1>
+
+    <input type="text" id="inp" value="some contents..">
+    <button onclick="send()">send</button>
+
+
+</body>
+<!-- <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script> -->
+<script type="text/javascript">
+
+    window.addEventListener('message', function(ev) {
+        // if (ev.source !== window.parent) {return;}
+        var data = ev.data;
+        console.info('message from parent:', data);
+    }, false);
+
+    function send() {
+        var data = document.querySelector('#inp').value;
+        // window.postMessage(data, '*'); // 触发当前页面的message事件
+        parent.postMessage(data, '*'); // 触发父页面的message事件
+        // parent.postMessage(data, 'http://localhost:9011/'); // 若父页面的域名和指定的不一致，则postMessage失败
+    }
+
+
+</script>
+
+</html>

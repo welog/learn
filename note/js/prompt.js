@@ -1,7 +1,7 @@
-!function() {
+!function($) {
     
     var params = {};
-    var EmitPrompt = { 
+    $.Prompt = { 
         Alert: function(msg, callback) {
             generateHtml('ALERT', msg);
             confirmBtn(callback);
@@ -27,10 +27,10 @@
         str += '<div id="zh-modal_main">' + msg + '</div><div id="zh-modal_footer">';
 
         if (type === 'ALERT') {
-            str += '<input id="zh-confirm" type="button" value="确定" style="width:100%;" />';
+            str += '<a id="zh-confirm" href="javascript:;" style="width:100%;">确定</a>';
         } else if (type === 'CONFIRM') {
-            str += '<input id="zh-cancel" type="button" value="取消" style="width:50%;" />';
-            str += '<input id="zh-confirm" type="button" value="确定" style="width:50%;" />';
+            str += '<a id="zh-cancel" href="javascript:;" style="width:50%;">取消</a>';
+            str += '<a id="zh-confirm" href="javascript:;" style="width:50%;">确定</a>';
         } else if (type === 'CUSTOM') {
             str += footer;
         }
@@ -76,11 +76,13 @@
         });
 
         $('#zh-confirm, #zh-cancel').css({
+            display: 'inline-block',
             height: '34px',
+            'line-height': '34px',
             color: '#fff',
-            border: 'none',
             'background-color': '#0f9aeb',
-            'font-size': '15px'
+            'font-size': '15px',
+            'text-decoration': 'none'
         });
         
         $('#zh-cancel').css({ 'border-right': '1px solid #70c2f2' });
@@ -113,12 +115,4 @@
         });
     }
 
-    if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
-		define(function() {
-			return EmitPrompt;
-		});
-	}else {
-		window.EmitPrompt = EmitPrompt;
-    }
-
-}();
+}(jQuery);

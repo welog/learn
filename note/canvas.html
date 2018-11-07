@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Document</title>
+    <style>
+        #canvas {
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="canvas" width="200" height="100"></canvas>
+
+
+
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+<script type="text/javascript">
+
+
+    var c = document.getElementById("canvas");
+    var ctx = c.getContext("2d");
+    // ctx.fillStyle = "rgba(0,0,0,.5)";
+    // ctx.fillRect(10, 10, 150, 75);
+
+    // ctx.moveTo(0, 0);
+    // ctx.lineTo(200, 100);
+    // ctx.stroke();
+
+    // ctx.beginPath();
+    // ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+    // ctx.fill();
+
+    // ctx.font = "30px Arial";
+    // ctx.fillText("Hello World", 10, 50);
+
+    ctx.font = "30px Arial";
+    ctx.strokeText("Hello World", 10, 50);
+
+
+</script>
+
+</html>

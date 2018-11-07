@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            width: 100%;
+            display: inline-block;
+        }
+
+        .swipe {
+            overflow: hidden;
+            visibility: hidden;
+            position: relative;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .swipe-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .swipe-slide {
+            float: left;
+            width: 100%;
+            position: relative;
+        }
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            z-index: 15;
+            width: 60%;
+            padding-left: 0;
+            margin-left: -30%;
+            text-align: center;
+            list-style: none;
+        }
+        .carousel-indicators li {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin: 1px;
+            text-indent: -999px;
+            cursor: pointer;
+            background-color: #000 \9;
+            background-color: rgba(0,0,0,0);
+            border: 1px solid #fff;
+            border-radius: 10px;
+        }
+        .carousel-indicators .active {
+            width:10px;
+            height:10px;
+            margin:0;
+            background-color:#f00;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="slider" class="swipe">
+        <div class='swipe-wrap'>
+            <div class="swipe-slide">
+                <img src="http://wishufu.wismall.com/assets/shop/5b359634ba9ad.jpg">
+            </div>
+            <div class="swipe-slide">
+                <img src="http://wishufu.wismall.com/assets/shop/5b3596729d198.jpg">
+            </div>
+            <div class="swipe-slide">
+                <img src="http://wishufu.wismall.com/assets/shop/5b3ca6e4a77e5.jpg">
+            </div>
+        </div>
+        <!-- 指示器 start -->
+        <ol id="indicators" class="carousel-indicators">
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+        <!-- 指示器 end -->
+    </div>
+
+
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/swipe/2.0.0/swipe.min.js"></script>
+    <script>
+
+        // 轮播图
+        var indexSwipe = new Swipe(document.getElementById('slider'), {
+            speed: 400,
+            auto: 2000,
+            continuous: true,
+            disableScroll: false,
+            stopPropagation: false,
+            callback: function (index, elem) { 
+                slideTab(index);
+            },
+            transitionEnd: function (index, elem) { }
+        });
+
+        // 点击指示器导航跳转
+        var indicators = document.getElementById('indicators');
+        if (indicators != undefined) {
+            indicators = indicators.getElementsByTagName('li');
+            indicators[0].className = 'active';
+            for (var i = 0; i < indicators.length; i++) {
+                // (function(i, indicators){
+                //   addEvent(indicators[i],'click',function(){
+                //     indexSwipe.slide(i, 500);
+                //   })
+                // })(i, indicators);
+                var elem = indicators[i];
+                elem.setAttribute('data-tab', i);
+                elem.onclick = function () {
+                    indexSwipe.slide(parseInt(this.getAttribute('data-tab'), 10), 500);
+                }
+            }
+        }
+
+        // 高亮当前指示器导航
+        function slideTab(index) {
+            var i = indicators.length;
+            while (i--) {
+                indicators[i].className = indicators[i].className.replace('active', '');
+            }
+            if(index >= indicators.length) {
+                indicators[index-2].className = 'active';
+            }else {
+                indicators[index].className = 'active';
+            }
+        }
+        
+    </script>
+</body>
+
+
+</html>

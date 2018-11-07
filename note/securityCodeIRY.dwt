@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wb="http://open.weibo.com/wb">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Keywords" content="IRY官网_防伪码查询" />
+    <meta name="Description" content="IRY官网_防伪码查询" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0"
+    />
+    <title>IRY官网_防伪码查询</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="icon" href="animated_favicon.gif" type="image/gif" />
+    <link href="http://cdn.bootcss.com/normalize/7.0.0/normalize.min.css" rel="stylesheet" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            max-width: 640px;
+            margin: 0 auto;
+            background-color: #fff;
+            position: relative;
+            /* background: #fff url(/images/sec-IRY_bg.jpg) no-repeat; */
+            /* background-size: cover; */
+        }
+        a {
+            text-decoration: none;
+        }
+        .seccode-hb {
+            margin: 0;
+        }
+        .seccode-hb img {
+            margin: 0 auto;
+            width: 100%;
+        }
+        .seccode-body{
+            padding-top: 40px;
+        }
+        .seccode-body img {
+            display: block;
+            max-width: 100%;
+        }
+        .seccode-body-form {
+            background: #fff;
+        }
+        .seccode-form-group {
+            width: 75%;
+            margin: 0 auto 25px;
+            overflow: hidden;
+        }
+        .seccode-input-l {
+            width: 70%;
+            float: left;
+            border: 1px solid #005bac;
+            height: 40px;
+            box-sizing: border-box;
+        }
+        .seccode-input-r {
+            width: 30%;
+            float: left;
+        }
+        .seccode-form-group .sc_code {
+            border: 0;
+            background: none;
+            outline: none;
+            font-size: 16px;
+            width: 100%;
+            height: 40px;
+            padding: 0 8px;
+        }
+        .seccode-form-group .us_Submit {
+            border: none;
+            color: #fff;
+            height: 40px;
+            width: 100%;
+            background: #005bac;
+            letter-spacing: 1px;
+            font-size: 13.5px;
+            padding: 0;
+        }
+        .securityCode-title {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            margin: 0 auto;
+            display: block;
+            max-width: 100%;
+        }
+        .seccode-des {
+            margin-top: 30px;
+            margin-bottom: 0;
+        }
+        .seccode-des h3 {
+            color: #5a5a5a;
+            margin: 0 0 15px 0;
+            border-left: 3px solid #005bac;
+            padding-left: 8px;
+            font-weight: 500;
+            font-size: 17px;
+        }
+        .seccode-body p {
+            color: #818181;
+            font-size: .9rem;
+            margin-bottom: 2px;
+        }
+        .result {
+            display: none;
+        }
+        .result .seccode-form-group {
+            padding-top: 15px;
+        }
+        .result p {
+            text-align: center;
+        }
+        .seccode-tel {
+            color: #005bac;
+        }
+        .goto-shop,
+        #go-back {
+            color: #005bac;
+            display: block;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header" class="seccode-hb">
+        <img id="header-img" src="/images/sec-IRY_header.jpg?v1001" alt="" />
+    </div>
+
+    <div id="seccode-body" class="seccode-body">
+        
+        <div id="seccode-body-form" class="seccode-body-form">
+            <img class="securityCode-title" src="/images/sec-IRY_title.png" alt="" />
+            <div class="seccode-form-group">
+                <div class="seccode-input-l">
+                    <input type="number" id="sc_code" class="sc_code" placeholder="请输入12位防伪码" />
+                </div>
+                <div class="seccode-input-r">
+                    <button class="us_Submit" onclick="query_sc();">点击查询</button>
+                </div>
+            </div>
+            <div class="seccode-form-group seccode-des">
+                <h3>防伪查询说明</h3>
+                <p>刮开产品包装盒上的标签涂层，输入防伪码进行查询</p>
+            </div>
+        </div>
+
+        <div id="result-success" class="result">
+            <img src="/images/sec-IRY_success.png" alt="" />
+            <div class="seccode-form-group">
+                <p>您购买的产品
+                    <span id="scode"></span>为官方正品！</p>
+                <p>感谢您对IRY的信任与支持！</p>
+            </div>
+            <!-- <a class="goto-shop" href="#">前往购买官方正品 >></a> -->
+        </div>
+
+        <div id="result-fail" class="result">
+            <img src="/images/securityCode_fail.png" alt="" />
+            <div class="seccode-form-group">
+                <p>请再次确认您输入的防伪码是否正确</p>
+                <p>或非官方渠道购买的产品</p>
+
+            </div>
+            <a id="go-back" class="seccode-tel" onclick="goBack();" href="javascript:;">重新输入查询 >></a>
+        </div>
+
+    </div>
+
+    <div id="footer" class="seccode-hb">
+        <img id="footer-img" src="/images/sec-IRY_bg.jpg?v1002" alt="" />
+    </div>
+
+</body>
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        // 去官方首页
+        // var urlSearch = location.search;
+        // //console.log(urlSearch.indexOf('xiaoxiWIS'));
+        // if (urlSearch.indexOf('wisvip') >= 0) {
+        //     $('.goto-shop').attr('href', 'http://newcrm.wismall.com/shop/Default/index/templateid/1510470511/token/547bcb48040a7.html');
+        // }
+
+        var headerHeight = 0;
+        var footerHeight = 0;
+
+        $('<img>').attr('src', $('#header-img').attr('src')).load(function () {
+            headerHeight = $('#header').height();
+            //compute(headerHeight, footerHeight);
+        });
+
+        $('<img>').attr('src', $('#footer-img').attr('src')).load(function () {
+            footerHeight = $('#footer').height();
+            compute(headerHeight, footerHeight);
+        });
+
+        // console.log(windowHeight, headerHeight, footerHeight);
+
+        function compute(headerHeight, footerHeight) {
+            var windowHeight = $(window).height();
+            // 中间主体计算
+            var height = windowHeight - headerHeight - footerHeight;
+            var mainHeight = $('#seccode-body').outerHeight();
+            // console.log('height=',height, 'mainHeight=',mainHeight);
+            if (height < mainHeight) {
+                var difHeight = ((mainHeight - height) / 3).toFixed(0);
+                var paddingH = 40 - difHeight;
+                // console.log('paddingH=', paddingH);
+                $('.securityCode-title').css('padding-bottom', paddingH + 'px');
+                $('#seccode-body').css('padding-top', paddingH -10 + 'px');
+                if(paddingH >= 0) {
+                    $('.seccode-des').css('margin-top', paddingH + 'px');
+                }
+            }
+
+            if(height <= 250) {
+                height = 260;
+            }
+
+            $('#seccode-body').css('height', height + 'px');
+        }
+
+        
+
+    });
+
+    //查询防伪码
+    function query_sc() {
+        var code = $("#sc_code").val();
+        var cookie_status;
+        if (window.navigator.cookieEnabled) {
+            cookie_status = 'oppen';
+        } else {
+            cookie_status = 'close';
+        }
+
+        if ($.trim(code) == '') {
+            alert('请输入商品防伪码！');
+            return false;
+
+        }
+        $.post("./securityCode.php", { act: "query_sc", code: code, cookie_status: cookie_status }, function (data) {
+            if (data.error == 0) {
+                if (data.msg) {
+                    /*var output = "防伪码:" + data.msg.scode + " 验证成功，您购买的为官方正品，请放心使用！\r\n";
+                    output += data.msg.checked == 0 ? "这是首次查询\r\n" : "首次查询在" + data.msg.first_check_time;*/
+                    document.getElementById('result-success').style.display = "block";
+                    document.getElementById('result-fail').style.display = "none";
+                    document.getElementById('seccode-body-form').style.display = "none";
+                    document.getElementById('scode').innerHTML = data.msg.scode;
+                } else {
+                    /* var output = "防伪码:" + code + " 未查询到结果，请核实再输入。";*/
+                    document.getElementById('result-success').style.display = "none";
+                    document.getElementById('seccode-body-form').style.display = "none";
+                    document.getElementById('result-fail').style.display = "block";
+                }
+            } else {
+                alert(data.msg);
+            }
+
+        }, "json");
+    }
+
+    // 返回查询
+    function goBack() {
+        document.getElementById('result-success').style.display = "none";
+        document.getElementById('seccode-body-form').style.display = "block";
+        document.getElementById('result-fail').style.display = "none";
+    }
+
+</script>
+
+</html>
